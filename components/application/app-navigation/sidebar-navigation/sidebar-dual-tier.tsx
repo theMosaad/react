@@ -36,6 +36,8 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
     const MAIN_SIDEBAR_WIDTH = 296;
     const SECONDARY_SIDEBAR_WIDTH = 256;
 
+    const borderWidth = hideBorder ? 0 : 1.5;
+
     const mainSidebar = (
         <aside className="group flex h-full max-h-full max-w-full overflow-y-auto bg-primary">
             <div
@@ -105,10 +107,11 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
             {isSecondarySidebarVisible && (
                 <motion.div
                     initial={{ width: 0, borderColor: "var(--color-border-secondary)" }}
-                    animate={{ width: SECONDARY_SIDEBAR_WIDTH, borderColor: "var(--color-border-secondary)" }}
+                    animate={{ width: SECONDARY_SIDEBAR_WIDTH + borderWidth, borderColor: "var(--color-border-secondary)" }}
                     exit={{ width: 0, borderColor: "rgba(0,0,0,0)", transition: { borderColor: { type: "tween", delay: 0.05 } } }}
                     transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
-                    className={cx("relative h-full overflow-y-auto bg-primary", !hideBorder && "border-r-[1.5px]")}
+                    className={cx("relative h-full overflow-x-hidden overflow-y-auto bg-primary")}
+                    style={{ borderRightWidth: borderWidth }}
                 >
                     <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 pt-6">
                         {currentItem.items?.map((item) => (

@@ -42,6 +42,8 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
     const MAIN_SIDEBAR_WIDTH = 68;
     const SECONDARY_SIDEBAR_WIDTH = 268;
 
+    const borderWidth = hideBorder || hideRightBorder ? 0 : 1.5;
+
     const mainSidebar = (
         <aside
             style={{
@@ -126,10 +128,11 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
             {isSecondarySidebarVisible && (
                 <motion.div
                     initial={{ width: 0, borderColor: "var(--color-border-secondary)" }}
-                    animate={{ width: SECONDARY_SIDEBAR_WIDTH, borderColor: "var(--color-border-secondary)" }}
+                    animate={{ width: SECONDARY_SIDEBAR_WIDTH + borderWidth, borderColor: "var(--color-border-secondary)" }}
                     exit={{ width: 0, borderColor: "rgba(0,0,0,0)", transition: { borderColor: { type: "tween", delay: 0.05 } } }}
                     transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
-                    className={cx("relative h-full overflow-y-auto bg-primary", !(hideBorder || hideRightBorder) && "border-r-[1.5px]")}
+                    className={cx("relative h-full overflow-x-hidden overflow-y-auto bg-primary")}
+                    style={{ borderRightWidth: borderWidth }}
                 >
                     <div style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col px-4 pt-6 pb-5">
                         <h3 className="text-sm font-semibold text-brand-secondary">{currentItem.label}</h3>
